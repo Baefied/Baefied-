@@ -3,93 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baefied | Pro Image Compressor</title>
+    <title>Baefied | Pro Image Studio</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 </head>
-<body class="bg-slate-950 text-white selection:bg-indigo-500/30">
+<body class="bg-slate-950 text-white selection:bg-indigo-500/30 min-h-screen">
 
     <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
-        <div class="text-2xl font-black tracking-tighter flex items-center gap-2">
-            <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">B</div>
-            BAEFIED
+        <div class="relative group cursor-pointer">
+            <img src="1000053803.jpg" alt="Baefied Logo" class="h-16 w-auto mix-blend-screen transition-transform duration-500 group-hover:scale-105">
+            <div class="absolute inset-0 bg-indigo-500/10 blur-2xl rounded-full opacity-50"></div>
         </div>
+        <div class="hidden md:block text-[10px] font-bold tracking-[0.4em] text-slate-500 uppercase">All-In-One Visual Toolkit</div>
     </nav>
 
-    <main class="max-w-4xl mx-auto px-6 pt-12 pb-24">
-        <div class="text-center mb-16 animate-fade-in">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-slate-500 bg-clip-text text-transparent">
-                Smarter Compression.
+    <main class="max-w-4xl mx-auto px-6 pt-10 pb-24">
+        <div class="text-center mb-12 animate-fade-in">
+            <h1 class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-indigo-200 to-slate-500 bg-clip-text text-transparent">
+                Visual Perfection.
             </h1>
-            <p class="text-slate-400 text-lg">Shrink images in seconds without losing quality.</p>
-        </div>
-
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
-            <div id="drop-zone" class="relative cursor-pointer flex flex-col items-center justify-center py-20 border-2 border-dashed border-slate-700 rounded-2xl hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-all">
-                <input type="file" id="file-input" class="hidden" accept="image/*">
-                <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-                </div>
-                <p class="text-xl font-semibold">Click to upload or drag & drop</pp
-                                                                                 <div class="flex justify-center gap-4 mb-8">
-    <button id="mode-compress" class="px-6 py-2 rounded-full bg-indigo-600 font-bold text-sm transition-all shadow-lg shadow-indigo-500/20">Compressor</button>
-    <button id="mode-convert" class="px-6 py-2 rounded-full bg-slate-800 hover:bg-slate-700 font-bold text-sm transition-all">Format Converter</button>
-</div>
-
-<div id="converter-window" class="hidden bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl animate-slide-up">
-    <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold">Universal Converter</h2>
-        <p class="text-slate-400 text-sm">Change formats instantly without quality loss</p>
-    </div>
-
-    <div class="flex flex-col items-center gap-6">
-        <div class="flex items-center gap-4 bg-slate-800/50 p-2 rounded-2xl border border-white/5">
-            <span class="pl-4 text-xs font-bold text-slate-500 uppercase">Target Format:</span>
-            <select id="format-select" class="bg-indigo-600 text-white px-4 py-2 rounded-xl font-bold outline-none cursor-pointer hover:bg-indigo-500 transition-colors">
-                <option value="image/png">PNG</option>
-                <option value="image/jpeg">JPG</option>
-                <option value="image/webp">WEBP</option>
-            </select>
-        </div>
-
-        <div id="convert-drop-zone" class="w-full border-2 border-dashed border-slate-700 rounded-2xl py-12 flex flex-col items-center group hover:border-indigo-500/50 transition-all cursor-pointer">
-            <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 21H3v-5"/><path d="M21 3l-7.5 7.5"/><path d="M3 21l7.5-7.5"/></svg>
+            
+            <div class="flex justify-center gap-2 mt-8 bg-slate-900/50 p-1.5 rounded-2xl w-fit mx-auto border border-white/5">
+                <button id="tab-compress" class="active-tab px-6 py-2.5 rounded-xl font-bold text-sm transition-all">Compressor</button>
+                <button id="tab-convert" class="inactive-tab px-6 py-2.5 rounded-xl font-bold text-sm transition-all text-slate-400 hover:text-white">Converter</button>
             </div>
-            <p class="font-medium">Upload for Conversion</p>
-            <input type="file" id="convert-input" class="hidden" accept="image/*">
         </div>
-    </div>
-</div>
-                
-            </div>
 
-            <div id="preview-area" class="hidden space-y-8 mt-4">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-widest">Original <span id="old-size"></span></p>
-                        <div class="aspect-video rounded-xl overflow-hidden bg-slate-800 border border-slate-700">
-                            <img id="original-preview" class="w-full h-full object-cover">
-                        </div>
+        <div id="compress-section" class="tool-window">
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+                <div id="drop-zone" class="relative cursor-pointer flex flex-col items-center justify-center py-16 border-2 border-dashed border-slate-700 rounded-2xl hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-all">
+                    <input type="file" id="file-input" class="hidden" accept="image/*">
+                    <div class="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/30 rotate-3 group-hover:rotate-0 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
                     </div>
-                    <div>
-                        <p class="text-xs font-bold text-indigo-400 mb-2 uppercase tracking-widest">Baefied <span id="new-size"></span></p>
-                        <div class="aspect-video rounded-xl overflow-hidden bg-slate-800 border border-slate-700 relative">
-                            <div id="loader" class="hidden absolute inset-0 bg-slate-900/80 flex items-center justify-center">
-                                <div class="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-xl font-bold">Shrink Image Size</p>
+                    <p class="text-slate-500 text-sm mt-1">PNG, JPG, WebP supported</p>
+                </div>
+
+                <div id="preview-area" class="hidden space-y-8 mt-4 animate-slide-up">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Original <span id="old-size"></span></p>
+                            <img id="original-preview" class="w-full h-48 object-cover rounded-2xl border border-slate-800">
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-[10px] font-black text-indigo-400 uppercase tracking-widest">Optimized <span id="new-size"></span></p>
+                            <div class="relative h-48">
+                                <div id="loader" class="hidden absolute inset-0 bg-slate-900/90 z-10 flex items-center justify-center rounded-2xl">
+                                    <div class="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                                </div>
+                                <img id="compressed-preview" class="w-full h-full object-cover rounded-2xl border border-indigo-500/30">
                             </div>
-                            <img id="compressed-preview" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-6 border-t border-slate-800">
+                        <div id="savings-badge" class="text-green-400 font-bold text-sm bg-green-500/10 px-3 py-1 rounded-lg"></div>
+                        <div class="flex gap-3">
+                            <button onclick="location.reload()" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-slate-800">Reset</button>
+                            <a id="download-btn" class="px-8 py-2.5 rounded-xl text-sm font-bold bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/20">Download</a>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-6 border-t border-slate-800">
-                    <div id="savings-badge" class="bg-green-500/10 text-green-400 px-4 py-2 rounded-full text-sm font-bold border border-green-500/20 tracking-wide"></div>
-                    <div class="flex gap-3 w-full md:w-auto">
-                        <button onclick="location.reload()" class="flex-1 md:flex-none px-6 py-3 rounded-xl font-medium border border-slate-700 hover:bg-slate-800 transition-colors">Reset</button>
-                        <a id="download-btn" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 px-8 py-3 rounded-xl font-bold shadow-lg shadow-indigo-500/20 transition-all active:scale-95">Download</a>
+        <div id="convert-section" class="tool-window hidden">
+            <div class="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl animate-slide-up">
+                <div class="flex flex-col items-center mb-8">
+                    <div class="flex items-center gap-3 bg-slate-800/50 p-2 pl-5 rounded-2xl border border-white/5">
+                        <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Target Format:</span>
+                        <select id="format-select" class="bg-indigo-600 px-4 py-2 rounded-xl font-bold text-sm outline-none cursor-pointer hover:bg-indigo-500 transition-all">
+                            <option value="image/png">PNG</option>
+                            <option value="image/jpeg">JPG</option>
+                            <option value="image/webp">WEBP</option>
+                        </select>
                     </div>
+                </div>
+
+                <div id="convert-drop-zone" class="cursor-pointer py-20 border-2 border-dashed border-slate-700 rounded-2xl flex flex-col items-center hover:border-indigo-500/50 transition-all group">
+                    <div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-white/10 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2H4"/><polyline points="14 2 14 8 20 8"/><path d="M8 18h1"/><path d="M8 14h1"/><path d="M8 22h1"/></svg>
+                    </div>
+                    <p class="text-xl font-bold">Convert Image Format</p>
+                    <input type="file" id="convert-input" class="hidden" accept="image/*">
                 </div>
             </div>
         </div>
