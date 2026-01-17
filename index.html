@@ -8,37 +8,47 @@
 </head>
 <body>
 
-  <div class="card">
-    <h1>Baefied</h1>
-    <p class="subtitle">Fast, private image compression in your browser</p>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">Baefied</div>
+  </header>
 
-    <label class="file-input">
+  <!-- MAIN -->
+  <main class="main">
+    <h1>Image Compressor</h1>
+    <p class="subtitle">
+      Compress images online for free. Fast, secure, and private.
+    </p>
+
+    <!-- UPLOAD BOX -->
+    <div class="upload-box" id="uploadBox">
+      <p class="upload-title">Select Image</p>
+      <p class="upload-sub">or drag and drop image here</p>
       <input type="file" id="imageInput" accept="image/*">
-      Choose Image
-    </label>
-
-    <img id="preview" />
-
-    <div class="control">
-      <label>Quality: <span id="qualityValue">80</span>%</label>
-      <input type="range" id="quality" min="10" max="100" value="80">
     </div>
 
-    <div class="control">
-      <label>Resolution</label>
-      <select id="resolution">
-        <option value="1">Original</option>
-        <option value="0.75">75%</option>
-        <option value="0.5">50%</option>
-      </select>
-    </div>
+    <!-- SETTINGS -->
+    <details class="settings">
+      <summary>Compression Settings (optional)</summary>
+
+      <div class="setting">
+        <label>Quality: <span id="qualityValue">80</span>%</label>
+        <input type="range" id="quality" min="10" max="100" value="80">
+      </div>
+
+      <div class="setting">
+        <label>Resolution</label>
+        <select id="resolution">
+          <option value="1">Original</option>
+          <option value="0.75">75%</option>
+          <option value="0.5">50%</option>
+        </select>
+      </div>
+    </details>
 
     <button id="compressBtn">Compress Image</button>
-
-    <a id="download" class="download" download>Download Image</a>
-
-    <p class="privacy">🔒 Images never leave your device</p>
-  </div>
+    <a id="download" download>Download Image</a>
+  </main>
 
   <script src="script.js"></script>
 </body>
