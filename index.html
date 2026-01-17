@@ -1,75 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Baefied Image Compressor</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baefied | Pro Image Compressor</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 </head>
-<body>
+<body class="bg-slate-950 text-white selection:bg-indigo-500/30">
 
-<header>
-  <div class="logo">Baefied</div>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Tools</a>
-    <a href="#">About</a>
-  </nav>
-</header>
+    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
+        <div class="text-2xl font-black tracking-tighter flex items-center gap-2">
+            <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">B</div>
+            BAEFIED
+        </div>
+    </nav>
 
-<main>
-  <h1>Image Compressor</h1>
-  <p class="subtitle">Compress images to exact sizes with smooth experience</p>
+    <main class="max-w-4xl mx-auto px-6 pt-12 pb-24">
+        <div class="text-center mb-16 animate-fade-in">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-slate-500 bg-clip-text text-transparent">
+                Smarter Compression.
+            </h1>
+            <p class="text-slate-400 text-lg">Shrink images in seconds without losing quality.</p>
+        </div>
 
-  <!-- Upload -->
-  <div class="upload" id="uploadBox">
-    <p>Drag & Drop Image</p>
-    <span>or click to select</span>
-    <input type="file" id="imageInput" accept="image/*">
-  </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+            <div id="drop-zone" class="relative cursor-pointer flex flex-col items-center justify-center py-20 border-2 border-dashed border-slate-700 rounded-2xl hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-all">
+                <input type="file" id="file-input" class="hidden" accept="image/*">
+                <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                </div>
+                <p class="text-xl font-semibold">Click to upload or drag & drop</p>
+            </div>
 
-  <!-- Controls -->
-  <section class="controls">
-    <div class="control">
-      <label>Compression Mode</label>
-      <select id="mode">
-        <option value="percent">By Percentage</option>
-        <option value="size">By Target Size</option>
-      </select>
-    </div>
+            <div id="preview-area" class="hidden space-y-8 mt-4">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-widest">Original <span id="old-size"></span></p>
+                        <div class="aspect-video rounded-xl overflow-hidden bg-slate-800 border border-slate-700">
+                            <img id="original-preview" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-indigo-400 mb-2 uppercase tracking-widest">Baefied <span id="new-size"></span></p>
+                        <div class="aspect-video rounded-xl overflow-hidden bg-slate-800 border border-slate-700 relative">
+                            <div id="loader" class="hidden absolute inset-0 bg-slate-900/80 flex items-center justify-center">
+                                <div class="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                            </div>
+                            <img id="compressed-preview" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
 
-    <div class="control" id="percentBox">
-      <label>Quality: <span id="qualityValue">75</span>%</label>
-      <input type="range" id="quality" min="10" max="100" value="75">
-    </div>
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-6 border-t border-slate-800">
+                    <div id="savings-badge" class="bg-green-500/10 text-green-400 px-4 py-2 rounded-full text-sm font-bold border border-green-500/20 tracking-wide"></div>
+                    <div class="flex gap-3 w-full md:w-auto">
+                        <button onclick="location.reload()" class="flex-1 md:flex-none px-6 py-3 rounded-xl font-medium border border-slate-700 hover:bg-slate-800 transition-colors">Reset</button>
+                        <a id="download-btn" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 px-8 py-3 rounded-xl font-bold shadow-lg shadow-indigo-500/20 transition-all active:scale-95">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <div class="control hidden" id="sizeBox">
-      <label>Target Size</label>
-      <select id="targetSize">
-        <option value="500">500 KB</option>
-        <option value="1024">1 MB</option>
-        <option value="2048">2 MB</option>
-      </select>
-    </div>
-  </section>
-
-  <button id="compressBtn">Compress Image</button>
-
-  <!-- Loader -->
-  <div class="loader hidden" id="loader"></div>
-
-  <a id="download" class="download" download>Download Image</a>
-</main>
-
-<footer>
-  <div class="socials">
-    <a href="https://instagram.com" target="_blank">Instagram</a>
-    <a href="https://github.com" target="_blank">GitHub</a>
-    <a href="https://facebook.com" target="_blank">Facebook</a>
-  </div>
-  <p>🔒 Images never leave your device</p>
-</footer>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
