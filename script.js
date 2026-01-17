@@ -1,88 +1,62 @@
-const imageInput = document.getElementById("imageInput");
-const compressBtn = document.getElementById("compressBtn");
-const download = document.getElementById("download");
-const loader = document.getElementById("loader");
+// --- TOOL SWITCHING LOGIC ---
+const tabCompress = document.getElementById('tab-compress');
+const tabConvert = document.getElementById('tab-convert');
+const compressSection = document.getElementById('compress-section');
+const convertSection = document.getElementById('convert-section');
 
-const mode = document.getElementById("mode");
-const percentBox = document.getElementById("percentBox");
-const sizeBox = document.getElementById("sizeBox");
-
-const quality = document.getElementById("quality");
-const qualityValue = document.getElementById("qualityValue");
-const targetSize = document.getElementById("targetSize");
-
-let imageData = null;
-
-quality.addEventListener("input", () => {
-  qualityValue.textContent = quality.value;
+tabCompress.addEventListener('click', () => {
+    compressSection.classList.remove('hidden');
+    convertSection.classList.add('hidden');
+    tabCompress.className = "active-tab px-6 py-2.5 rounded-xl font-bold text-sm transition-all";
+    tabConvert.className = "px-6 py-2.5 rounded-xl font-bold text-sm transition-all text-slate-400 hover:text-white";
 });
 
-mode.addEventListener("change", () => {
-  percentBox.classList.toggle("hidden", mode.value !== "percent");
-  sizeBox.classList.toggle("hidden", mode.value !== "size");
+tabConvert.addEventListener('click', () => {
+    convertSection.classList.remove('hidden');
+    compressSection.classList.add('hidden');
+    tabConvert.className = "active-tab px-6 py-2.5 rounded-xl font-bold text-sm transition-all";
+    tabCompress.className = "px-6 py-2.5 rounded-xl font-bold text-sm transition-all text-slate-400 hover:text-white";
 });
 
-imageInput.addEventListener("change", () => {
-  const file = imageInput.files[0];
-  if (!file) return;
+// --- COMPRESSOR LOGIC ---
+const fileInput = document.getElementById('file-input');
+const dropZone = document.getElementById('drop-zone');
+const previewArea = document.getElementById('preview-area');
+const originalPreview = document.getElementById('original-preview');
+const compressedPreview = document.getElementById('compressed-preview');
+const loader = document.getElementById('loader');
+const downloadBtn = document.getElementById('download-btn');
 
-  const reader = new FileReader();
-  reader.onload = () => imageData = reader.result;
-  reader.readAsDataURL(file);
+dropZone.addEventListener('click', () => fileInput.click());
+
+fileInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    dropZone.classList.add('hidden');
+    previewArea.classList.remove('hidden');
+    originalPreview.src = URL.createObjectURL(file);
+    document.getElementById('old-size').innerText = `(${formatBytes(file.size)})`;
+
+    loader.classList.remove('hidden');
+
+    try {
+        const options = { maxSizeMB: 0.8, maxWidthOrHeight: 1920, useWebWorker: true };
+        const compressedFile = await imageCompression(file, options);
+        const url = URL.createObjectURL(compressedFile);
+        
+        compressedPreview.src = url;
+        downloadBtn.href = url;
+        downloadBtn.download = `baefied_optimized_${file.name}`;
+        
+        const savings = Math.round(((file.size - compressedFile.size) / file.size) * 100);
+        document.getElementById('new-size').innerText = `(${formatBytes(compressedFile.size)})`;
+        document.getElementById('savings-badge').innerText = `SAVED ${savings}%`;
+    } catch (err) { alert("Compression error. Try again."); }
+    finally { loader.classList.add('hidden'); }
 });
 
-compressBtn.addEventListener("click", () => {
-  if (!imageData) return alert("Select image first");
-
-  loader.classList.remove("hidden");
-  download.style.display = "none";
-
-  const img = new Image();
-  img.src = imageData;
-
-  img.onload = () => {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = img.width;
-    canvas.height = img.height;
-    ctx.drawImage(img, 0, 0);
-
-    let q = quality.value / 100;
-
-    if (mode.value === "size") {
-      const targetKB = parseInt(targetSize.value);
-      q = Math.min(0.9, targetKB / 2000);
-    }
-
-    const output = canvas.toDataURL("image/jpeg", q);
-
-    loader.classList.add("hidden");
-    download.href = output;
-    download.style.display = "block";
-  };
-});
-// Toggle Logic
-const btnCompress = document.getElementById('mode-compress');
-const btnConvert = document.getElementById('mode-convert');
-const compressWindow = document.querySelector('.bg-slate-900'); // Your first card
-const converterWindow = document.getElementById('converter-window');
-
-btnConvert.addEventListener('click', () => {
-    compressWindow.classList.add('hidden');
-    converterWindow.classList.remove('hidden');
-    btnConvert.className = "px-6 py-2 rounded-full bg-indigo-600 font-bold text-sm transition-all shadow-lg shadow-indigo-500/20";
-    btnCompress.className = "px-6 py-2 rounded-full bg-slate-800 hover:bg-slate-700 font-bold text-sm transition-all";
-});
-
-btnCompress.addEventListener('click', () => {
-    converterWindow.classList.add('hidden');
-    compressWindow.classList.remove('hidden');
-    btnCompress.className = "px-6 py-2 rounded-full bg-indigo-600 font-bold text-sm transition-all shadow-lg shadow-indigo-500/20";
-    btnConvert.className = "px-6 py-2 rounded-full bg-slate-800 hover:bg-slate-700 font-bold text-sm transition-all";
-});
-
-// Conversion Logic
+// --- CONVERTER LOGIC ---
 const convertInput = document.getElementById('convert-input');
 const convertDropZone = document.getElementById('convert-drop-zone');
 const formatSelect = document.getElementById('format-select');
@@ -102,14 +76,13 @@ convertInput.addEventListener('change', (e) => {
             canvas.height = img.height;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0);
-
-            // Convert to selected format
+            
             const targetFormat = formatSelect.value;
+            const extension = targetFormat.split('/')[1];
             const dataUrl = canvas.toDataURL(targetFormat);
             
-            // Auto Download
             const link = document.createElement('a');
-            link.download = `baefied-converted.${targetFormat.split('/')[1]}`;
+            link.download = `baefied_converted.${extension}`;
             link.href = dataUrl;
             link.click();
         };
@@ -117,4 +90,9 @@ convertInput.addEventListener('change', (e) => {
     };
     reader.readAsDataURL(file);
 });
-                                             
+
+function formatBytes(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    return parseFloat((bytes / Math.pow(1024, i)).toFixed(2)) + ' ' + ['Bytes', 'KB', 'MB'][i];
+      }
