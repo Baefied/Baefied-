@@ -31,7 +31,38 @@
                 <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/20">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
                 </div>
-                <p class="text-xl font-semibold">Click to upload or drag & drop</p>
+                <p class="text-xl font-semibold">Click to upload or drag & drop</pp
+                                                                                 <div class="flex justify-center gap-4 mb-8">
+    <button id="mode-compress" class="px-6 py-2 rounded-full bg-indigo-600 font-bold text-sm transition-all shadow-lg shadow-indigo-500/20">Compressor</button>
+    <button id="mode-convert" class="px-6 py-2 rounded-full bg-slate-800 hover:bg-slate-700 font-bold text-sm transition-all">Format Converter</button>
+</div>
+
+<div id="converter-window" class="hidden bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl animate-slide-up">
+    <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold">Universal Converter</h2>
+        <p class="text-slate-400 text-sm">Change formats instantly without quality loss</p>
+    </div>
+
+    <div class="flex flex-col items-center gap-6">
+        <div class="flex items-center gap-4 bg-slate-800/50 p-2 rounded-2xl border border-white/5">
+            <span class="pl-4 text-xs font-bold text-slate-500 uppercase">Target Format:</span>
+            <select id="format-select" class="bg-indigo-600 text-white px-4 py-2 rounded-xl font-bold outline-none cursor-pointer hover:bg-indigo-500 transition-colors">
+                <option value="image/png">PNG</option>
+                <option value="image/jpeg">JPG</option>
+                <option value="image/webp">WEBP</option>
+            </select>
+        </div>
+
+        <div id="convert-drop-zone" class="w-full border-2 border-dashed border-slate-700 rounded-2xl py-12 flex flex-col items-center group hover:border-indigo-500/50 transition-all cursor-pointer">
+            <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 21H3v-5"/><path d="M21 3l-7.5 7.5"/><path d="M3 21l7.5-7.5"/></svg>
+            </div>
+            <p class="font-medium">Upload for Conversion</p>
+            <input type="file" id="convert-input" class="hidden" accept="image/*">
+        </div>
+    </div>
+</div>
+                
             </div>
 
             <div id="preview-area" class="hidden space-y-8 mt-4">
