@@ -1,40 +1,100 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 body {
-  
   margin: 0;
   min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background: radial-gradient(circle at top, #1e293b, #020617);
   display: flex;
   align-items: center;
   justify-content: center;
-  }font-family: Arial, sans-serif;
-  font-family: #f2f2f2;
+  color: #fff;
 }
 
-.box {
-  max-width: 360px;
-  margin: 40px auto;
-  background: #fff;
-  padding: 20px;
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  border-radius: 18px;
+  padding: 26px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.subtitle {
+  opacity: 0.8;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.file-input {
+  display: block;
   text-align: center;
-  border-radius: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.12);
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+
+.file-input input {
+  display: none;
+}
+
+#preview {
+  width: 100%;
+  display: none;
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+
+.control {
+  margin-bottom: 14px;
+}
+
+input[type="range"],
+select {
+  width: 100%;
 }
 
 button {
-  margin-top: 12px;
-  padding: 10px;
   width: 100%;
-  background: #000;
-  color: #fff;
+  padding: 14px;
+  border-radius: 14px;
   border: none;
-  border-radius: 6px;
-}.container {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  padding: 24px;
-  border-radius: 16px;
-  width: 90%;
-  max-width: 420px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
   color: white;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: transform .15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+.download {
+  display: none;
+  margin-top: 12px;
+  text-align: center;
+  padding: 12px;
+  border-radius: 12px;
+  background: #22c55e;
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.privacy {
+  margin-top: 14px;
+  font-size: 12px;
+  opacity: 0.6;
+  text-align: center;
 }
