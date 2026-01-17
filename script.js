@@ -1,45 +1,52 @@
-const q = document.getElementById("quality");
-const qv = document.getElementById("qv");
-q.oninput = () => qv.innerText = q.value;
+const imageInput = document.getElementById("imageInput");
+const preview = document.getElementById("preview");
+const qualitySlider = document.getElementById("quality");
+const qualityValue = document.getElementById("qualityValue");
+const resolutionSelect = document.getElementById("resolution");
+const compressBtn = document.getElementById("compressBtn");
+const downloadLink = document.getElementById("download");
 
-function compress() {
-  const file = document.getElementById("upload").files[0];
-  if (!file) return alert("Please select an image");
+let originalImage = null;
 
-  const quality = q.value / 100;
-  const scale = parseFloat(document.getElementById("resolution").value);
+qualitySlider.addEventListener("input", () => {
+  qualityValue.textContent = qualitySlider.value;
+});
+
+imageInput.addEventListener("change", () => {
+  const file = imageInput.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    preview.src = reader.result;
+    preview.style.display = "block";
+    originalImage = reader.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+compressBtn.addEventListener("click", () => {
+  if (!originalImage) return alert("Select an image first");
 
   const img = new Image();
-  img.src = URL.createObjectURL(file);
+  img.src = originalImage;
 
   img.onload = () => {
+    const scale = parseFloat(resolutionSelect.value);
     const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
 
     canvas.width = img.width * scale;
     canvas.height = img.height * scale;
 
+    const ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-    canvas.toBlob(blob => {
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "baefied-compressed.jpg";
-      link.textContent = "Download Compressed Image";
+    const compressed = canvas.toDataURL(
+      "image/jpeg",
+      qualitySlider.value / 100
+    );
 
-      const out = document.getElementById("output");
-      out.innerHTML = "";
-      out.appendChild(link);
-    }, "image/jpeg", quality);
+    downloadLink.href = compressed;
+    downloadLink.style.display = "block";
   };
-}
-const fileInput = document.querySelector('input[type="file"]');
-const preview = document.getElementById('preview');
-
-fileInput.addEventListener('change', () => {
-  const file = fileInput.files[0];
-  if (file) {
-    preview.src = URL.createObjectURL(file);
-    preview.style.display = 'block';
-  }
 });
