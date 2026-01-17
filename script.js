@@ -1,15 +1,14 @@
 const imageInput = document.getElementById("imageInput");
-const preview = document.getElementById("preview");
-const qualitySlider = document.getElementById("quality");
+const quality = document.getElementById("quality");
 const qualityValue = document.getElementById("qualityValue");
-const resolutionSelect = document.getElementById("resolution");
+const resolution = document.getElementById("resolution");
 const compressBtn = document.getElementById("compressBtn");
-const downloadLink = document.getElementById("download");
+const download = document.getElementById("download");
 
-let originalImage = null;
+let imageData = null;
 
-qualitySlider.addEventListener("input", () => {
-  qualityValue.textContent = qualitySlider.value;
+quality.addEventListener("input", () => {
+  qualityValue.textContent = quality.value;
 });
 
 imageInput.addEventListener("change", () => {
@@ -17,23 +16,19 @@ imageInput.addEventListener("change", () => {
   if (!file) return;
 
   const reader = new FileReader();
-  reader.onload = () => {
-    preview.src = reader.result;
-    preview.style.display = "block";
-    originalImage = reader.result;
-  };
+  reader.onload = () => imageData = reader.result;
   reader.readAsDataURL(file);
 });
 
 compressBtn.addEventListener("click", () => {
-  if (!originalImage) return alert("Select an image first");
+  if (!imageData) return alert("Select an image first");
 
   const img = new Image();
-  img.src = originalImage;
+  img.src = imageData;
 
   img.onload = () => {
-    const scale = parseFloat(resolutionSelect.value);
     const canvas = document.createElement("canvas");
+    const scale = parseFloat(resolution.value);
 
     canvas.width = img.width * scale;
     canvas.height = img.height * scale;
@@ -43,10 +38,10 @@ compressBtn.addEventListener("click", () => {
 
     const compressed = canvas.toDataURL(
       "image/jpeg",
-      qualitySlider.value / 100
+      quality.value / 100
     );
 
-    downloadLink.href = compressed;
-    downloadLink.style.display = "block";
+    download.href = compressed;
+    download.style.display = "block";
   };
 });
