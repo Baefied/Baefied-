@@ -1,106 +1,396 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baefied | Ultimate Creative Suite</title>
+    <title>Baefied - Premium Media Studio</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 </head>
-<body class="bg-[#030303] text-white font-['Plus_Jakarta_Sans'] overflow-x-hidden">
-
-    <div class="fixed inset-0 z-0">
-        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/20 blur-[120px] rounded-full animate-pulse"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-600/10 blur-[120px] rounded-full animate-pulse" style="animation-delay: 2s;"></div>
-    </div>
-
-    <nav class="relative z-50 p-6 flex justify-between items-center max-w-7xl mx-auto backdrop-blur-md">
-        <div class="group flex items-center gap-4 cursor-pointer">
-            <img src="1000053803.jpg" alt="Baefied" class="h-14 w-auto mix-blend-screen transition-transform group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(99,102,241,0.5)]">
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="1000053803.jpg" alt="Baefied Logo" class="logo">
+                <span class="brand-name">BAEFIED</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="downloader.html">Downloader</a></li>
+                <li><a href="compressor.html">Compressor</a></li>
+                <li><a href="converter.html">Converter</a></li>
+            </ul>
         </div>
-        <div class="hidden md:flex items-center gap-8 bg-white/5 border border-white/10 px-8 py-3 rounded-full">
-            <button onclick="switchTab('downloader')" class="tab-link active-tab" id="btn-dl">Downloader</button>
-            <button onclick="switchTab('compressor')" class="tab-link" id="btn-comp">Compressor</button>
-            <button onclick="switchTab('converter')" class="tab-link" id="btn-conv">Converter</button>
-        </div>
-        <button class="bg-indigo-600 px-6 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-indigo-500/20 active:scale-95 transition-all">Pro Access</button>
     </nav>
 
-    <main class="relative z-10 max-w-5xl mx-auto px-6 pt-16 pb-32">
-        <header class="text-center mb-16 animate-reveal">
-            <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter mb-4">
-                Be <span class="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Creative.</span>
-            </h1>
-            <p class="text-slate-400 text-lg max-w-xl mx-auto font-light">The all-in-one studio for media extraction and optimization.</p>
-        </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Transform Your Media</h1>
+            <p class="hero-subtitle">Professional-grade tools for downloading, compressing, and converting your content</p>
+            <div class="hero-cta">
+                <a href="downloader.html" class="btn btn-primary">Get Started</a>
+                <a href="#features" class="btn btn-secondary">Explore Tools</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card card-1"></div>
+            <div class="floating-card card-2"></div>
+            <div class="floating-card card-3"></div>
+        </div>
+    </section>
 
-        <section id="sec-downloader" class="tool-section animate-slide-up">
-            <div class="glass-card p-4">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="relative flex-1">
-                        <input type="text" id="yt-url" placeholder="Paste YouTube link here..." class="main-input">
-                    </div>
-                    <button onclick="handleDownload()" id="dl-main-btn" class="main-btn bg-indigo-600">Extract Media</button>
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Premium Media Tools</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📥</div>
+                    <h3>YouTube Downloader</h3>
+                    <p>Extract thumbnails and metadata from any YouTube video instantly</p>
+                    <a href="downloader.html" class="feature-link">Try Now →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🗜️</div>
+                    <h3>Image Compressor</h3>
+                    <p>Reduce file sizes without compromising quality using advanced algorithms</p>
+                    <a href="compressor.html" class="feature-link">Compress →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Format Converter</h3>
+                    <p>Convert between image formats seamlessly with our canvas-powered engine</p>
+                    <a href="converter.html" class="feature-link">Convert →</a>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div id="dl-result" class="hidden mt-8 animate-slide-up">
-                <div class="glass-card p-8 flex flex-col md:flex-row gap-8 items-center">
-                    <img id="vid-img" src="" class="w-full md:w-64 rounded-2xl shadow-2xl border border-white/10">
-                    <div class="flex-1 space-y-4">
-                        <h3 id="vid-name" class="text-2xl font-bold leading-tight">Video Title</h3>
-                        <div class="flex gap-3">
-                            <button class="px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-indigo-100 transition-all">Download MP3</button>
-                            <button class="px-6 py-3 bg-white/10 border border-white/10 font-bold rounded-xl hover:bg-white/20 transition-all">Download MP4</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="sec-compressor" class="tool-section hidden animate-slide-up">
-            <div class="glass-card p-12 text-center border-dashed border-2 border-white/10" id="comp-drop">
-                <input type="file" id="comp-input" class="hidden" accept="image/*">
-                <div class="w-20 h-20 bg-indigo-600/20 rounded-3xl flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-10 h-10 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                </div>
-                <h3 class="text-2xl font-bold mb-2">Compress Image</h3>
-                <p class="text-slate-400">Reduce file size up to 90% without losing quality.</p>
-            </div>
-            <div id="comp-result" class="hidden mt-8 glass-card p-8">
-                <div class="flex justify-between items-center mb-6">
-                    <div class="bg-green-500/20 text-green-400 px-4 py-1 rounded-full text-xs font-bold" id="comp-saved">Saved 0%</div>
-                    <a id="comp-dl" class="text-indigo-400 font-bold flex items-center gap-2">Download Optimized <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></a>
-                </div>
-                <img id="comp-preview" class="w-full h-64 object-cover rounded-xl">
-            </div>
-        </section>
-
-        <section id="sec-converter" class="tool-section hidden animate-slide-up">
-            <div class="glass-card p-8 text-center">
-                <div class="flex items-center justify-center gap-4 mb-8">
-                    <span class="text-sm font-bold text-slate-500 uppercase">Target:</span>
-                    <select id="conv-format" class="bg-indigo-600 px-4 py-2 rounded-xl font-bold">
-                        <option value="image/png">PNG</option>
-                        <option value="image/jpeg">JPG</option>
-                        <option value="image/webp">WEBP</option>
-                    </select>
-                </div>
-                <div id="conv-drop" class="py-16 border-2 border-dashed border-white/10 rounded-3xl hover:border-indigo-500/50 cursor-pointer transition-all">
-                    <input type="file" id="conv-input" class="hidden" accept="image/*">
-                    <p class="text-xl font-bold">Convert Image Format</p>
-                    <p class="text-slate-500 mt-2">Instant browser-side processing</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="text-center py-12 border-t border-white/5 opacity-40 text-sm">
-        &copy; 2026 BAEFIED MEDIA STUDIO. ALL RIGHTS RESERVED.
-    </footer
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Baefied. Premium Media Studio.</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
+
+
+<!-- ================================================== -->
+<!-- FILE 2: downloader.html - YouTube Downloader Page -->
+<!-- ================================================== -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Downloader - Baefied</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="1000053803.jpg" alt="Baefied Logo" class="logo">
+                <span class="brand-name">BAEFIED</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="downloader.html" class="active">Downloader</a></li>
+                <li><a href="compressor.html">Compressor</a></li>
+                <li><a href="converter.html">Converter</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="tool-section">
+        <div class="container">
+            <div class="tool-header">
+                <h1 class="tool-title">YouTube Downloader</h1>
+                <p class="tool-description">Extract thumbnails and metadata from any YouTube video</p>
+            </div>
+
+            <div class="tool-container">
+                <div class="input-section glass-card">
+                    <label for="youtubeUrl" class="input-label">YouTube Video URL</label>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="youtubeUrl" 
+                            class="tool-input" 
+                            placeholder="https://www.youtube.com/watch?v=..."
+                        >
+                        <button id="extractBtn" class="btn btn-primary">Extract</button>
+                    </div>
+                </div>
+
+                <div id="resultSection" class="result-section" style="display: none;">
+                    <div class="glass-card">
+                        <h3 class="result-title">Video Information</h3>
+                        <div class="video-info">
+                            <div class="thumbnail-container">
+                                <img id="thumbnail" src="" alt="Video Thumbnail" class="video-thumbnail">
+                            </div>
+                            <div class="metadata">
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Video ID:</span>
+                                    <span id="videoId" class="metadata-value"></span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">Thumbnail URL:</span>
+                                    <a id="thumbnailUrl" href="" target="_blank" class="metadata-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="thumbnail-options">
+                            <h4 class="options-title">Available Qualities</h4>
+                            <div class="quality-grid" id="qualityGrid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Baefied. Premium Media Studio.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+<!-- ================================================ -->
+<!-- FILE 3: compressor.html - Image Compressor Page -->
+<!-- ================================================ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compressor - Baefied</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/browser-image-compression/2.0.2/browser-image-compression.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="1000053803.jpg" alt="Baefied Logo" class="logo">
+                <span class="brand-name">BAEFIED</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="downloader.html">Downloader</a></li>
+                <li><a href="compressor.html" class="active">Compressor</a></li>
+                <li><a href="converter.html">Converter</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="tool-section">
+        <div class="container">
+            <div class="tool-header">
+                <h1 class="tool-title">Image Compressor</h1>
+                <p class="tool-description">Reduce file sizes without compromising quality</p>
+            </div>
+
+            <div class="tool-container">
+                <div class="upload-section glass-card">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <h3>Drop your image here</h3>
+                        <p>or click to browse</p>
+                        <input type="file" id="imageInput" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <div id="compressionSection" class="compression-section" style="display: none;">
+                    <div class="glass-card">
+                        <h3 class="settings-title">Compression Settings</h3>
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <label for="qualitySlider" class="setting-label">
+                                    Quality: <span id="qualityValue">80</span>%
+                                </label>
+                                <input 
+                                    type="range" 
+                                    id="qualitySlider" 
+                                    min="10" 
+                                    max="100" 
+                                    value="80" 
+                                    class="slider"
+                                >
+                            </div>
+                            <div class="setting-item">
+                                <label for="maxSizeMB" class="setting-label">Max Size (MB)</label>
+                                <input 
+                                    type="number" 
+                                    id="maxSizeMB" 
+                                    class="tool-input" 
+                                    value="1" 
+                                    min="0.1" 
+                                    step="0.1"
+                                >
+                            </div>
+                        </div>
+                        <button id="compressBtn" class="btn btn-primary full-width">Compress Image</button>
+                    </div>
+
+                    <div id="resultSection" class="result-grid" style="display: none;">
+                        <div class="glass-card">
+                            <h4 class="card-subtitle">Original</h4>
+                            <img id="originalPreview" src="" alt="Original" class="preview-image">
+                            <div class="image-stats">
+                                <p>Size: <span id="originalSize"></span></p>
+                                <p>Dimensions: <span id="originalDimensions"></span></p>
+                            </div>
+                        </div>
+                        <div class="glass-card">
+                            <h4 class="card-subtitle">Compressed</h4>
+                            <img id="compressedPreview" src="" alt="Compressed" class="preview-image">
+                            <div class="image-stats">
+                                <p>Size: <span id="compressedSize"></span></p>
+                                <p>Reduction: <span id="reductionPercent"></span></p>
+                            </div>
+                            <button id="downloadBtn" class="btn btn-secondary full-width">Download</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Compressing...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Baefied. Premium Media Studio.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+<!-- =============================================== -->
+<!-- FILE 4: converter.html - Format Converter Page -->
+<!-- =============================================== -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Format Converter - Baefied</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="1000053803.jpg" alt="Baefied Logo" class="logo">
+                <span class="brand-name">BAEFIED</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="downloader.html">Downloader</a></li>
+                <li><a href="compressor.html">Compressor</a></li>
+                <li><a href="converter.html" class="active">Converter</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="tool-section">
+        <div class="container">
+            <div class="tool-header">
+                <h1 class="tool-title">Format Converter</h1>
+                <p class="tool-description">Convert between image formats seamlessly</p>
+            </div>
+
+            <div class="tool-container">
+                <div class="upload-section glass-card">
+                    <div class="upload-area" id="convertUploadArea">
+                        <div class="upload-icon">🖼️</div>
+                        <h3>Drop your image here</h3>
+                        <p>Supports: JPG, PNG, WebP, BMP</p>
+                        <input type="file" id="convertImageInput" accept="image/*" hidden>
+                    </div>
+                </div>
+
+                <div id="conversionSection" class="conversion-section" style="display: none;">
+                    <div class="glass-card">
+                        <h3 class="settings-title">Conversion Options</h3>
+                        <div class="format-selector">
+                            <label class="setting-label">Convert to:</label>
+                            <div class="format-buttons">
+                                <button class="format-btn" data-format="image/png">PNG</button>
+                                <button class="format-btn" data-format="image/jpeg">JPG</button>
+                                <button class="format-btn" data-format="image/webp">WebP</button>
+                            </div>
+                        </div>
+                        <div class="setting-item" id="qualitySection" style="display: none;">
+                            <label for="convertQuality" class="setting-label">
+                                Quality: <span id="convertQualityValue">92</span>%
+                            </label>
+                            <input 
+                                type="range" 
+                                id="convertQuality" 
+                                min="10" 
+                                max="100" 
+                                value="92" 
+                                class="slider"
+                            >
+                        </div>
+                        <button id="convertBtn" class="btn btn-primary full-width" disabled>Convert Image</button>
+                    </div>
+
+                    <div id="convertResultSection" class="result-grid" style="display: none;">
+                        <div class="glass-card">
+                            <h4 class="card-subtitle">Original</h4>
+                            <img id="convertOriginalPreview" src="" alt="Original" class="preview-image">
+                            <div class="image-stats">
+                                <p>Format: <span id="originalFormat"></span></p>
+                                <p>Size: <span id="convertOriginalSize"></span></p>
+                            </div>
+                        </div>
+                        <div class="glass-card">
+                            <h4 class="card-subtitle">Converted</h4>
+                            <img id="convertedPreview" src="" alt="Converted" class="preview-image">
+                            <div class="image-stats">
+                                <p>Format: <span id="convertedFormat"></span></p>
+                                <p>Size: <span id="convertedSize"></span></p>
+                            </div>
+                            <button id="convertDownloadBtn" class="btn btn-secondary full-width">Download</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="convertLoadingSpinner" class="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Converting...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Baefied. Premium Media Studio.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+                </html>
