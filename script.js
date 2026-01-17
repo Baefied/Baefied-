@@ -1,38 +1,52 @@
 const urlInput = document.getElementById('url-input');
-const fetchBtn = document.getElementById('download-trigger');
-const resultCard = document.getElementById('result-card');
-const videoTitle = document.getElementById('video-title');
+const fetchBtn = document.getElementById('fetch-btn');
+const resultDisplay = document.getElementById('result-display');
+const vidThumb = document.getElementById('vid-thumb');
+const vidTitle = document.getElementById('vid-title');
+const btnIcon = document.getElementById('btn-icon');
 
-fetchBtn.addEventListener('click', () => {
+// Function to extract YouTube ID
+function getYouTubeID(url) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
+}
+
+fetchBtn.addEventListener('click', async () => {
     const url = urlInput.value.trim();
+    const videoId = getYouTubeID(url);
 
-    if (url === "") {
-        urlInput.classList.add('border-red-500/50');
-        setTimeout(() => urlInput.classList.remove('border-red-500/50'), 2000);
+    if (!videoId) {
+        alert("Please enter a valid YouTube link!");
         return;
     }
 
-    // Change button state to loading
-    fetchBtn.innerHTML = `<div class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>`;
+    // Start Loading Animation
     fetchBtn.disabled = true;
+    btnIcon.innerHTML = `<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" stroke-dasharray="31.4" stroke-dashoffset="0" class="animate-spin"></circle>`;
+    fetchBtn.style.opacity = "0.7";
 
-    // Simulate API Fetching (In a real app, you'd connect to a RapidAPI or custom backend)
+    // Simulate API delay
     setTimeout(() => {
-        fetchBtn.innerHTML = `<span>Fetch</span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+        // Reset Button
         fetchBtn.disabled = false;
+        btnIcon.innerHTML = `<path d="m9 18 6-6-6-6"/>`;
+        fetchBtn.style.opacity = "1";
 
-        // Show the Result Card with animation
-        resultCard.classList.remove('hidden');
-        videoTitle.innerText = "Baefied Media: " + (url.substring(0, 30) + "...");
+        // Update UI with ACTUAL YouTube Data
+        vidThumb.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+        vidTitle.innerText = "Video Successfully Extracted";
         
-        // Scroll to result smoothly
-        resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Show Result Window
+        resultDisplay.classList.remove('hidden');
+        resultDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Dynamic success colors
+        document.querySelector('.background-glow').style.background = 
+            `radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.1) 0%, transparent 50%)`;
     }, 1500);
 });
 
-// Clear result when input is emptied
-urlInput.addEventListener('input', (e) => {
-    if (e.target.value === "") {
-        resultCard.classList.add('hidden');
-    }
-});
+// Real functionality note: To actually download the file, 
+// you would usually redirect the user to a download server.
+// For example: window.location.href = `https://api.vevioz.com/@download/stream/${videoId}`;
