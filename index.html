@@ -3,78 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baefied | Premium Media Studio</title>
+    <title>Baefied | Ultimate Creative Suite</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 </head>
-<body class="bg-[#050505] text-white font-['Outfit'] min-h-screen overflow-x-hidden">
+<body class="bg-[#030303] text-white font-['Plus_Jakarta_Sans'] overflow-x-hidden">
 
-    <div class="background-glow"></div>
+    <div class="fixed inset-0 z-0">
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/20 blur-[120px] rounded-full animate-pulse"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-600/10 blur-[120px] rounded-full animate-pulse" style="animation-delay: 2s;"></div>
+    </div>
 
-    <nav class="relative z-50 p-8 flex justify-between items-center max-w-7xl mx-auto">
-        <div class="logo-container group">
-            <img src="1000053803.jpg" alt="Baefied" class="h-16 w-auto mix-blend-screen transition-all duration-700 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(99,102,241,0.8)]">
+    <nav class="relative z-50 p-6 flex justify-between items-center max-w-7xl mx-auto backdrop-blur-md">
+        <div class="group flex items-center gap-4 cursor-pointer">
+            <img src="1000053803.jpg" alt="Baefied" class="h-14 w-auto mix-blend-screen transition-transform group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(99,102,241,0.5)]">
         </div>
-        <div class="flex gap-4">
-            <div class="px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold tracking-widest uppercase opacity-70">v2.0 Beta</div>
+        <div class="hidden md:flex items-center gap-8 bg-white/5 border border-white/10 px-8 py-3 rounded-full">
+            <button onclick="switchTab('downloader')" class="tab-link active-tab" id="btn-dl">Downloader</button>
+            <button onclick="switchTab('compressor')" class="tab-link" id="btn-comp">Compressor</button>
+            <button onclick="switchTab('converter')" class="tab-link" id="btn-conv">Converter</button>
         </div>
+        <button class="bg-indigo-600 px-6 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-indigo-500/20 active:scale-95 transition-all">Pro Access</button>
     </nav>
 
-    <main class="relative z-10 max-w-5xl mx-auto px-6 py-12">
-        <header class="text-center mb-16 space-y-4">
-            <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-tight animate-text">
-                Capture the <span class="gradient-text">Moment.</span>
+    <main class="relative z-10 max-w-5xl mx-auto px-6 pt-16 pb-32">
+        <header class="text-center mb-16 animate-reveal">
+            <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter mb-4">
+                Be <span class="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Creative.</span>
             </h1>
-            <p class="text-slate-400 text-lg md:text-xl max-w-xl mx-auto font-light leading-relaxed">
-                The world's most advanced media extractor. Paste a link to begin the magic.
-            </p>
+            <p class="text-slate-400 text-lg max-w-xl mx-auto font-light">The all-in-one studio for media extraction and optimization.</p>
         </header>
 
-        <div class="main-card animate-float">
-            <div class="flex flex-col md:flex-row gap-4 p-2">
-                <div class="relative flex-1 group">
-                    <div class="absolute inset-y-0 left-6 flex items-center pointer-events-none text-indigo-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <section id="sec-downloader" class="tool-section animate-slide-up">
+            <div class="glass-card p-4">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="relative flex-1">
+                        <input type="text" id="yt-url" placeholder="Paste YouTube link here..." class="main-input">
                     </div>
-                    <input type="text" id="url-input" placeholder="Paste YouTube, Instagram or TikTok link..." 
-                        class="w-full bg-white/[0.03] border border-white/10 rounded-3xl py-6 pl-16 pr-8 text-lg focus:outline-none focus:border-indigo-500/50 focus:bg-white/[0.07] transition-all duration-500">
+                    <button onclick="handleDownload()" id="dl-main-btn" class="main-btn bg-indigo-600">Extract Media</button>
                 </div>
-                <button id="fetch-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white px-12 py-6 rounded-3xl font-bold text-lg transition-all active:scale-95 shadow-[0_20px_40px_rgba(79,70,229,0.3)] flex items-center justify-center gap-3">
-                    <span>Extract</span>
-                    <svg id="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
             </div>
-        </div>
 
-        <div id="result-display" class="hidden mt-12 space-y-6">
-            <div class="bg-white/[0.02] border border-white/10 rounded-[2.5rem] p-8 backdrop-blur-3xl animate-slide-up">
-                <div class="flex flex-col md:flex-row gap-10 items-start">
-                    <div class="relative w-full md:w-80 group">
-                        <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                        <img id="vid-thumb" src="" alt="Thumbnail" class="relative w-full aspect-video md:aspect-square object-cover rounded-2xl border border-white/10 shadow-2xl">
-                    </div>
-
-                    <div class="flex-1 space-y-6">
-                        <div>
-                            <span class="text-indigo-400 text-xs font-bold tracking-[0.3em] uppercase">Ready for Download</span>
-                            <h2 id="vid-title" class="text-3xl font-bold mt-2 leading-tight">Video Title</h2>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <button class="dl-btn group bg-white text-black">
-                                <span class="relative z-10">High Quality MP3</span>
-                                <div class="absolute inset-0 bg-indigo-200 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-                            </button>
-                            <button class="dl-btn bg-white/10 hover:bg-white/20 border border-white/10">
-                                <span>High Quality MP4</span>
-                            </button>
+            <div id="dl-result" class="hidden mt-8 animate-slide-up">
+                <div class="glass-card p-8 flex flex-col md:flex-row gap-8 items-center">
+                    <img id="vid-img" src="" class="w-full md:w-64 rounded-2xl shadow-2xl border border-white/10">
+                    <div class="flex-1 space-y-4">
+                        <h3 id="vid-name" class="text-2xl font-bold leading-tight">Video Title</h3>
+                        <div class="flex gap-3">
+                            <button class="px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-indigo-100 transition-all">Download MP3</button>
+                            <button class="px-6 py-3 bg-white/10 border border-white/10 font-bold rounded-xl hover:bg-white/20 transition-all">Download MP4</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <section id="sec-compressor" class="tool-section hidden animate-slide-up">
+            <div class="glass-card p-12 text-center border-dashed border-2 border-white/10" id="comp-drop">
+                <input type="file" id="comp-input" class="hidden" accept="image/*">
+                <div class="w-20 h-20 bg-indigo-600/20 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Compress Image</h3>
+                <p class="text-slate-400">Reduce file size up to 90% without losing quality.</p>
+            </div>
+            <div id="comp-result" class="hidden mt-8 glass-card p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="bg-green-500/20 text-green-400 px-4 py-1 rounded-full text-xs font-bold" id="comp-saved">Saved 0%</div>
+                    <a id="comp-dl" class="text-indigo-400 font-bold flex items-center gap-2">Download Optimized <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg></a>
+                </div>
+                <img id="comp-preview" class="w-full h-64 object-cover rounded-xl">
+            </div>
+        </section>
+
+        <section id="sec-converter" class="tool-section hidden animate-slide-up">
+            <div class="glass-card p-8 text-center">
+                <div class="flex items-center justify-center gap-4 mb-8">
+                    <span class="text-sm font-bold text-slate-500 uppercase">Target:</span>
+                    <select id="conv-format" class="bg-indigo-600 px-4 py-2 rounded-xl font-bold">
+                        <option value="image/png">PNG</option>
+                        <option value="image/jpeg">JPG</option>
+                        <option value="image/webp">WEBP</option>
+                    </select>
+                </div>
+                <div id="conv-drop" class="py-16 border-2 border-dashed border-white/10 rounded-3xl hover:border-indigo-500/50 cursor-pointer transition-all">
+                    <input type="file" id="conv-input" class="hidden" accept="image/*">
+                    <p class="text-xl font-bold">Convert Image Format</p>
+                    <p class="text-slate-500 mt-2">Instant browser-side processing</p>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <footer class="text-center py-12 border-t border-white/5 opacity-40 text-sm">
+        &copy; 2026 BAEFIED MEDIA STUDIO. ALL RIGHTS RESERVED.
+    </footer
 
     <script src="script.js"></script>
 </body>
